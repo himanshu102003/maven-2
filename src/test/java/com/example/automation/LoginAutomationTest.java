@@ -47,13 +47,11 @@ public class LoginAutomationTest {
          // Click the login button
          loginButton.click();
 
-         // Wait for the page title to change to "Secure Area"
-         wait.until(ExpectedConditions.titleIs("Secure Area"));
-
-         // Verify that the title of the page is as expected after login
-         String expectedTitle = "Secure Area";
-         String actualTitle = driver.getTitle();
-         Assertions.assertEquals(expectedTitle, actualTitle);
+         // Wait for the presence of a logout button (indicating successful login)
+         WebElement logoutButton = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("a.button.secondary.radius")));
+         
+         // Verify that the logout button is displayed
+         Assertions.assertTrue(logoutButton.isDisplayed(), "Logout button should be visible after login");
 
       } catch (Exception e) {
          // Capture screenshot if there's an error

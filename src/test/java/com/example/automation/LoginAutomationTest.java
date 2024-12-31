@@ -1,48 +1,63 @@
 package com.example.automation;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.junit.jupiter.api.Test;
 import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LoginAutomationTest {
 
-    @Test
-    public void testLogin() {
-        // Set up the WebDriver
+    private WebDriver driver;
+
+    @BeforeEach
+    public void setUp() {
+        // Set the path for ChromeDriver (or use WebDriverManager to auto-manage)
         System.setProperty("webdriver.chrome.driver", "C:/Users/himan/Downloads/chromedriver-win32/chromedriver.exe");
 
-        WebDriver driver = new ChromeDriver();
+        // Initialize WebDriver
+        driver = new ChromeDriver();
 
-        try {
-            // Navigate to the login page
-            driver.get("https://example.com/login");
+        // Configure timeout settings
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().window().maximize();
+    }
 
-            // Wait for the username field to be visible
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-            WebElement usernameField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("username")));
-            WebElement passwordField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("password")));
-            WebElement loginButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("loginButton")));
+    @Test
+    public void testLogin() {
+        // Navigate to the login page
+        driver.get("https://example.com/login");
 
-            // Perform login
-            usernameField.sendKeys("testUser");
-            passwordField.sendKeys("testPassword");
-            loginButton.click();
+        // Wait for the username field to be visible
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement usernameField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("username")));
 
-            // Validate successful login
-            String expectedTitle = "Dashboard";
-            String actualTitle = driver.getTitle();
+        // Locate the password field and login button
+        WebElement passwordField = driver.findElement(By.id("password"));
+        WebElement loginButton = driver.findElement(By.id("loginButton"));
 
-            assertEquals(expectedTitle, actualTitle);
+        // Perform login
+        usernameField.sendKeys("testUser");
+        passwordField.sendKeys("testPassword");
+        loginButton.click();
 
-        } finally {
-            // Close the browser
+        // Validate successful login by checking the page title
+        String expectedTitle = "Dashboard";
+        String actualTitle = driver.getTitle();
+        assertEquals(expectedTitle, actualTitle, "Login was not successful!");
+    }
+
+    @AfterEach
+    public void tearDown() {
+        // Close the browser after each test
+        if (driver != null) {
             driver.quit();
         }
     }

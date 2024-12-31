@@ -1,10 +1,4 @@
-<<<<<<< HEAD:src/test/java/com/example/automation/LoginAutomationTest.java
 package com.example.automation; 
-=======
-package com.example.automation;
-
->>>>>>> 84fa8ec8af55b5136c8270f8c78bd7164b69ae53:src/main/java/com/example/automation/LoginAutomationTest.java
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

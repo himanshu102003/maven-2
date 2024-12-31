@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import java.time.Duration; // Import Duration class
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -23,8 +24,8 @@ public class LoginAutomationTest {
             // Navigate to the login page
             driver.get("https://example.com/login");
 
-            // Wait for the username field to be visible
-            WebDriverWait wait = new WebDriverWait(driver, 10); // 10 seconds timeout
+            // Wait for the username field to be visible (Using Duration)
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // Use Duration.ofSeconds
             WebElement usernameField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("username")));
             WebElement passwordField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("password")));
             WebElement loginButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("loginButton")));

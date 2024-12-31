@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 package com.example.automation;
  
 
+=======
+package com.example.automation; 
+>>>>>>> 1375472b003a14ff065aff9fdb2e66a8ef2989ef
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,6 +19,10 @@ public class LoginAutomationTest {
     public void testLogin() {
         // Set up the WebDriver
         System.setProperty("webdriver.chrome.driver", "C:/Users/himan/Downloads/chromedriver_win32/chromedriver.exe");
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1375472b003a14ff065aff9fdb2e66a8ef2989ef
         WebDriver driver = new ChromeDriver();
 
         try {

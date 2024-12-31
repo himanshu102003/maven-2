@@ -28,7 +28,7 @@ pipeline {
                     mvn sonar:sonar \
                       -Dsonar.projectKey=maven-automation \
                       -Dsonar.projectName='maven-automation' \
-                      -Dsonar.sources=src/main/java/com/example/automation \
+                      -Dsonar.sources=src/test/java/com/example/automation \
                       -Dsonar.host.url=http://localhost:9000 \
                       -Dsonar.login=sqp_367df051eb12fd8d4d4b20eb25a9bfd3151e3c34
                     """

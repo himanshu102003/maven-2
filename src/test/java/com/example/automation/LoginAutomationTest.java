@@ -28,7 +28,7 @@ public class LoginAutomationTest {
          driver.get("https://the-internet.herokuapp.com/login");
 
          // Create WebDriverWait instance to wait for elements
-         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15)); // Increased wait time
 
          // Take a screenshot for debugging
          takeScreenshot(driver, "before_login_page");
@@ -47,16 +47,20 @@ public class LoginAutomationTest {
          // Click the login button
          loginButton.click();
 
-         // Wait for the presence of a logout button (indicating successful login)
+         // Wait for the page to load (wait for logout button)
          WebElement logoutButton = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("a.button.secondary.radius")));
-         
+
          // Verify that the logout button is displayed
          Assertions.assertTrue(logoutButton.isDisplayed(), "Logout button should be visible after login");
+
+         // Take a screenshot after login attempt
+         takeScreenshot(driver, "after_login_page");
 
       } catch (Exception e) {
          // Capture screenshot if there's an error
          takeScreenshot(driver, "error_screenshot");
-         throw e;
+         e.printStackTrace(); // Print the stack trace for debugging
+         throw e; // Rethrow the exception after capturing the screenshot
       } finally {
          // Close the browser after the test
          driver.quit();

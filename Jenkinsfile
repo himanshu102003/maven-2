@@ -1,12 +1,11 @@
 pipeline {
     agent any
     tools {
-        maven 'Maven'
-        jdk 'JDK_1.8'
+        maven 'Maven'  // Ensure Maven tool is configured in Jenkins
+        jdk 'JDK_1.8'  // Ensure JDK 1.8 is configured in Jenkins
     }
     environment {
-        
-        SONAR_TOKEN = credentials('sonarqube-token')
+        SONAR_TOKEN = credentials('sonarqube-token')  // Securely load SonarQube token
     }
     stages {
         stage('Checkout') {
@@ -18,27 +17,26 @@ pipeline {
         stage('Build') {
             steps {
                 // Build project using Maven
-                bat 'mvn clean package'
+                bat 'mvn clean package'  // Use `sh` for Unix-based systems
             }
         }
         stage('SonarQube Analysis') {
             steps {
                 // Run SonarQube analysis
                 withSonarQubeEnv('SonarQube-Scanner') {
-                    bat '''
+                    bat """
                     mvn sonar:sonar \
                       -Dsonar.projectKey=maven-automation \
                       -Dsonar.projectName='maven-automation' \
                       -Dsonar.sources=src/main/java/com/example/automation \
                       -Dsonar.host.url=http://localhost:9000 \
                       -Dsonar.login=sqp_367df051eb12fd8d4d4b20eb25a9bfd3151e3c34
-                    '''
+                    """
                 }
             }
         }
-        
     }
-  post {
+    post {
         success {
             echo 'Pipeline completed successfully'
         }

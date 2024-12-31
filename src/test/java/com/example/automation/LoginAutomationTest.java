@@ -22,7 +22,7 @@ public class LoginAutomationTest {
 
         try {
             // Navigate to the login page
-            driver.get("https://example.com/login");
+            driver.get("http://the-internet.herokuapp.com/login");
 
             // Wait for the username field to be visible (Using Duration)
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // Use Duration.ofSeconds

@@ -26,11 +26,11 @@ pipeline {
                 withSonarQubeEnv('SonarQube-Scanner') {
                     bat """
                     mvn sonar:sonar \
-                      -Dsonar.projectKey=maven-automation \
-                      -Dsonar.projectName='maven-automation' \
+                      -Dsonar.projectKey=maven-aut \
+                      -Dsonar.projectName='maven-aut' \
                       -Dsonar.sources=src/test/java/com/example/automation \
                       -Dsonar.host.url=http://localhost:9000 \
-                      -Dsonar.login=sqp_367df051eb12fd8d4d4b20eb25a9bfd3151e3c34
+                      -Dsonar.login=sqp_e67734429c7116e33c331329b574a05da10389ff
                     """
                 }
             }

@@ -39,6 +39,9 @@ public class LoginAutomationTest {
          // Click the login button
          loginButton.click();
 
+         // Wait for the page title to change to "Secure Area"
+         wait.until(ExpectedConditions.titleIs("Secure Area"));
+
          // Verify that the title of the page is as expected after login
          String expectedTitle = "Secure Area";
          String actualTitle = driver.getTitle();

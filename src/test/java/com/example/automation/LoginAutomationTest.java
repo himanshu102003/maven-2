@@ -6,10 +6,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import java.time.Duration;
 
 public class LoginAutomationTest {
-   public LoginAutomationTest() {
-   }
 
    @Test
    public void testLogin() {
@@ -21,12 +22,15 @@ public class LoginAutomationTest {
          // Navigate to the Herokuapp login page
          driver.get("https://the-internet.herokuapp.com/login");
 
-         // Locate the username, password fields, and the login button by their attributes
-         WebElement usernameField = driver.findElement(By.id("username"));
-         WebElement passwordField = driver.findElement(By.id("password"));
+         // Create WebDriverWait instance to wait for elements
+         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-         // Update to locate the login button using its class name and type
-         WebElement loginButton = driver.findElement(By.cssSelector("button.radius[type='submit']"));
+         // Wait until the username field is visible
+         WebElement usernameField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("username")));
+         WebElement passwordField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("password")));
+         
+         // Wait for the login button to be clickable
+         WebElement loginButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button.radius[type='submit']")));
 
          // Enter login credentials
          usernameField.sendKeys("tomsmith");

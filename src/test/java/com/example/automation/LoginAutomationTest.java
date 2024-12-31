@@ -1,10 +1,4 @@
-<<<<<<< HEAD
-package com.example.automation;
- 
-
-=======
 package com.example.automation; 
->>>>>>> 1375472b003a14ff065aff9fdb2e66a8ef2989ef
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

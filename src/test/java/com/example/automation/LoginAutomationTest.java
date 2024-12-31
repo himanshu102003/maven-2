@@ -8,7 +8,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.Duration;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.OutputType;
 
 public class LoginAutomationTest {
 
@@ -24,6 +29,9 @@ public class LoginAutomationTest {
 
          // Create WebDriverWait instance to wait for elements
          WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+         // Take a screenshot for debugging
+         takeScreenshot(driver, "before_login_page");
 
          // Wait until the username field is visible
          WebElement usernameField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("username")));
@@ -47,9 +55,23 @@ public class LoginAutomationTest {
          String actualTitle = driver.getTitle();
          Assertions.assertEquals(expectedTitle, actualTitle);
 
+      } catch (Exception e) {
+         // Capture screenshot if there's an error
+         takeScreenshot(driver, "error_screenshot");
+         throw e;
       } finally {
          // Close the browser after the test
          driver.quit();
+      }
+   }
+
+   // Helper method to take a screenshot
+   private void takeScreenshot(WebDriver driver, String filename) {
+      try {
+         File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+         Files.copy(screenshot.toPath(), Paths.get(filename + ".png"));
+      } catch (Exception e) {
+         e.printStackTrace();
       }
    }
 }

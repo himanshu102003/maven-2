@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.io.File;
@@ -19,18 +20,25 @@ public class LoginAutomationTest {
 
    @Test
    public void testLogin() {
-      // Set the path for the ChromeDriver
+      // Set the path for ChromeDriver
       System.setProperty("webdriver.chrome.driver", "C:/Users/himan/Downloads/chromedriver-win32/chromedriver-win32/chromedriver.exe");
-      WebDriver driver = new ChromeDriver();
+
+      // Setup Chrome Options for Headless mode (for CI environments)
+      ChromeOptions options = new ChromeOptions();
+      options.addArguments("--headless");  // Uncomment for headless mode (runs without UI)
+      options.addArguments("--disable-gpu");  // Disable GPU usage in headless mode
+      options.addArguments("--window-size=1920x1080");  // Set a window size for headless mode
+
+      WebDriver driver = new ChromeDriver(options);
 
       try {
-         // Navigate to the Herokuapp login page
+         // Navigate to the login page
          driver.get("https://the-internet.herokuapp.com/login");
 
          // Create WebDriverWait instance to wait for elements
          WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15)); // Increased wait time
 
-         // Take a screenshot for debugging
+         // Take a screenshot for debugging before login
          takeScreenshot(driver, "before_login_page");
 
          // Wait until the username field is visible
@@ -47,22 +55,23 @@ public class LoginAutomationTest {
          // Click the login button
          loginButton.click();
 
-         // Wait for the page to load (wait for logout button)
+         // Wait for the page to load and verify the logout button is visible
          WebElement logoutButton = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("a.button.secondary.radius")));
 
-         // Verify that the logout button is displayed
+         // Verify that the logout button is displayed after login
          Assertions.assertTrue(logoutButton.isDisplayed(), "Logout button should be visible after login");
 
          // Take a screenshot after login attempt
          takeScreenshot(driver, "after_login_page");
 
       } catch (Exception e) {
-         // Capture screenshot if there's an error
+         // Capture screenshot in case of any error
          takeScreenshot(driver, "error_screenshot");
-         e.printStackTrace(); // Print the stack trace for debugging
-         throw e; // Rethrow the exception after capturing the screenshot
+         System.out.println("Error occurred: " + e.getMessage());
+         e.printStackTrace();  // Print stack trace for debugging
+         throw e; // Rethrow the exception to fail the test
       } finally {
-         // Close the browser after the test
+         // Always close the browser after the test
          driver.quit();
       }
    }
@@ -74,6 +83,7 @@ public class LoginAutomationTest {
          Files.copy(screenshot.toPath(), Paths.get(filename + ".png"));
       } catch (Exception e) {
          e.printStackTrace();
+         System.out.println("Failed to capture screenshot: " + e.getMessage());
       }
    }
 }

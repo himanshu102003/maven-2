@@ -23,7 +23,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 // Run SonarQube analysis
-                withSonarQubeEnv('sonarqube-server') {
+                withSonarQubeEnv('SonarQube-Scanner') {
                     bat """
                     mvn sonar:sonar \
                       -Dsonar.projectKey=maven-automation \

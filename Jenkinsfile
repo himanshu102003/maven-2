@@ -33,7 +33,7 @@ pipeline {
                 // Run SonarQube analysis and publish the coverage report
                 withSonarQubeEnv('SONARQUBE_SERVER') {
                     bat """
-                    mvn sonar:sonar \
+                    mvn clean verify sonar:sonar \
                       -Dsonar.projectKey=maven-aut2 \
                       -Dsonar.projectName='maven-aut2' \
                       -Dsonar.sources=src/main/java/com/example/automation \

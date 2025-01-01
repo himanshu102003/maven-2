@@ -6,7 +6,7 @@ pipeline {
     }
     environment {
         SONAR_TOKEN = credentials('sonarqube-token')
-        SONARQUBE_SERVER = 'sonarqube-server'// Securely load SonarQube token
+        SONARQUBE_SERVER = 'sonarqube-server' // Replace with your SonarQube server URL
     }
     stages {
         stage('Checkout') {
@@ -17,8 +17,14 @@ pipeline {
         }
         stage('Build') {
             steps {
-                // Build project using Maven
-                bat 'mvn clean package'  // Use `sh` for Unix-based systems
+                // Build the project and run tests
+                bat 'mvn clean test'
+            }
+        }
+        stage('Generate Coverage Report') {
+            steps {
+                // Generate coverage report using JaCoCo
+                bat 'mvn jacoco:report'
             }
         }
         stage('SonarQube Analysis') {
@@ -29,7 +35,10 @@ pipeline {
                     mvn sonar:sonar \
                       -Dsonar.projectKey=maven-aut2 \
                       -Dsonar.projectName='maven-aut2' \
-                      -Dsonar.sources=src/test/java/com/example/automation \
+                      -Dsonar.sources=src/main/java \
+                      -Dsonar.tests=src/test/java \
+                      -Dsonar.java.binaries=target/classes \
+                      -Dsonar.coverage.jacoco.xmlReportPaths=${basedir}/coverage.xml \
                       -Dsonar.host.url=http://localhost:9000 \
                       -Dsonar.login=%SONAR_TOKEN%
                     """

@@ -38,7 +38,7 @@ pipeline {
                       -Dsonar.sources=src/main/java/com/example/automation \
                       -Dsonar.tests=src/test/java/com/example/automation \
                       -Dsonar.java.binaries=target/classes \
-                      -Dsonar.coverage.jacoco.xmlReportPaths=coverage.xml \
+                      -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/coverage.xml \
                       -Dsonar.host.url=http://localhost:9000 \
                       -Dsonar.login=%SONAR_TOKEN%
                     """

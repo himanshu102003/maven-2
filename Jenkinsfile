@@ -35,7 +35,7 @@ pipeline {
             steps {
                 script {
                     echo 'Running SonarQube Analysis...'
-                withSonarQubeEnv('SONARQUBE_SERVER') {
+                withSonarQubeEnv('sonarqube-server') {
                     bat """
                     mvn clean verify sonar:sonar \
                       -Dsonar.projectKey=maven-aut2 \

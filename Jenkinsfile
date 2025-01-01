@@ -5,7 +5,7 @@ pipeline {
         jdk 'JDK_1.8'  // Ensure JDK 1.8 is configured in Jenkins
     }
     environment {
-        SONAR_TOKEN = credentials('sonarqube-token')
+        SONAR_TOKEN = credentials('sonarqube-token')  // SonarQube token
         SONARQUBE_SERVER = 'sonarqube-server' // Replace with your SonarQube server URL
     }
     stages {
@@ -29,16 +29,16 @@ pipeline {
         }
         stage('SonarQube Analysis') {
             steps {
-                // Run SonarQube analysis
+                // Run SonarQube analysis and publish the coverage report
                 withSonarQubeEnv('SONARQUBE_SERVER') {
                     bat """
                     mvn sonar:sonar \
                       -Dsonar.projectKey=maven-aut2 \
                       -Dsonar.projectName='maven-aut2' \
-                      -Dsonar.sources=src/main/java \
-                      -Dsonar.tests=src/test/java \
+                      -Dsonar.sources=src/main/java/com/example/automation \
+                      -Dsonar.tests=src/test/java/com/example/automation \
                       -Dsonar.java.binaries=target/classes \
-                      -Dsonar.coverage.jacoco.xmlReportPaths=${basedir}/coverage.xml \
+                      -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/coverage.xml \
                       -Dsonar.host.url=http://localhost:9000 \
                       -Dsonar.login=%SONAR_TOKEN%
                     """

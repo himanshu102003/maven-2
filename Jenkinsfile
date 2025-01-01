@@ -22,11 +22,12 @@ pipeline {
             }
         }
         stage('Generate Coverage Report') {
-            steps {
-                // Generate coverage report using JaCoCo
-                bat 'mvn jacoco:report'
-            }
-        }
+    steps {
+        // Generate coverage report using JaCoCo
+        bat 'mvn jacoco:report'
+        bat 'dir target\\site\\jacoco'
+    }
+}
         stage('SonarQube Analysis') {
             steps {
                 // Run SonarQube analysis and publish the coverage report
@@ -45,6 +46,7 @@ pipeline {
                 }
             }
         }
+
     }
     post {
         success {

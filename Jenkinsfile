@@ -6,31 +6,35 @@ pipeline {
     }
     environment {
         SONAR_TOKEN = credentials('sonarqube-token')  // SonarQube token
-        SONARQUBE_SERVER = 'sonarqube-server' // Replace with your SonarQube server URL
+        SONARQUBE_SERVER = 'sonarqube-server' // SonarQube server URL
+        PATH = "C:\\Windows\\System32;${env.PATH}" // Ensure cmd is in the PATH (Windows)
     }
     stages {
         stage('Checkout') {
             steps {
-                // Checkout code from GitHub
-                checkout scm
+                checkout scm  // Checkout the source code
             }
         }
         stage('Build') {
             steps {
-                // Build the project and run tests
-                bat 'mvn clean test'
+                script {
+                    echo 'Running Maven Build...'
+                    bat 'mvn clean test'  // Windows-based command to build and test with Maven
+                }
             }
         }
         stage('Generate Coverage Report') {
-    steps {
-        // Generate coverage report using JaCoCo
-        bat 'mvn jacoco:report'
-        bat 'dir target\\site\\jacoco'
-    }
-}
+            steps {
+                script {
+                    echo 'Generating Coverage Report using JaCoCo...'
+                    bat 'mvn jacoco:report'  // Generate coverage report using JaCoCo
+                }
+            }
+        }
         stage('SonarQube Analysis') {
             steps {
-                // Run SonarQube analysis and publish the coverage report
+                script {
+                    echo 'Running SonarQube Analysis...'
                 withSonarQubeEnv('SONARQUBE_SERVER') {
                     bat """
                     mvn clean verify sonar:sonar \

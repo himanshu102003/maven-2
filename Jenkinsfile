@@ -29,6 +29,8 @@ pipeline {
                       -Dsonar.projectKey=maven-aut2 \
                       -Dsonar.projectName='maven-aut2' \
                       -Dsonar.sources=src/test/java/com/example/automation \
+                      -Dsonar.tests=src/test/java/com/example/automation \
+                      -Dsonar.java.binaries=target/test-classes \
                       -Dsonar.host.url=http://localhost:9000 \
                       -Dsonar.login=%SONAR_TOKEN%
                     """

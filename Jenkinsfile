@@ -5,7 +5,8 @@ pipeline {
         jdk 'JDK_1.8'  // Ensure JDK 1.8 is configured in Jenkins
     }
     environment {
-        SONAR_TOKEN = credentials('sonarqube-token')  // Securely load SonarQube token
+        SONAR_TOKEN = credentials('sonarqube-token')
+        SONARQUBE_SERVER = 'sonarqube-server'// Securely load SonarQube token
     }
     stages {
         stage('Checkout') {
@@ -23,7 +24,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 // Run SonarQube analysis
-                withSonarQubeEnv('SonarQube-Scanner') {
+                withSonarQubeEnv('SONARQUBE_SERVER') {
                     bat """
                     mvn sonar:sonar \
                       -Dsonar.projectKey=maven-aut2 \

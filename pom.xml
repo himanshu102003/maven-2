@@ -14,6 +14,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <selenium.version>4.12.1</selenium.version>
         <slf4j.version>1.7.32</slf4j.version>
+        <sonar.branch.name>main</sonar.branch.name>
     </properties>
 
     <dependencies>

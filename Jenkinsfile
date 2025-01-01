@@ -30,7 +30,7 @@ pipeline {
                       -Dsonar.projectName='maven-aut2' \
                       -Dsonar.sources=src/test/java/com/example/automation \
                       -Dsonar.host.url=http://localhost:9000 \
-                      -Dsonar.login=sqp_6d8f7f1d05d6cb0135d16104f56345d4c6826aac
+                      -Dsonar.login=%SONAR_TOKEN%
                     """
                 }
             }

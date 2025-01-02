@@ -28,6 +28,14 @@ public class App {
         // Simulate an additional feature
         String status = checkUserStatus("tomsmith");
         logger.info("User status: " + status);
+
+        // Adding another feature to simulate an operation failure
+        try {
+            String userData = fetchUserData("tomsmith");
+            logger.info("Fetched user data: " + userData);
+        } catch (Exception e) {
+            logger.error("Error while fetching user data", e);
+        }
     }
 
     // Simulate a risky operation that might throw an exception
@@ -47,5 +55,13 @@ public class App {
         } else {
             return "Inactive";
         }
+    }
+
+    // Simulate fetching user data
+    private static String fetchUserData(String username) throws Exception {
+        if ("tomsmith".equals(username)) {
+            return "User data for tomsmith";
+        }
+        throw new Exception("User data not found");
     }
 }

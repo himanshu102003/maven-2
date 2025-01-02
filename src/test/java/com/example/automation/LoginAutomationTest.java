@@ -15,7 +15,7 @@ import java.nio.file.Paths;
 import java.time.Duration;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.OutputType;
-import src.main.java.com.example.automation.App;
+import com.example.automation.App;
 
 
 public class LoginAutomationTest {

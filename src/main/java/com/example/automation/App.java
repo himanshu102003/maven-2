@@ -1,12 +1,18 @@
 package com.example.automation;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class App {
-    private static final Logger logger = LoggerFactory.getLogger(App.class);
 
-    public static void main(String[] args) {
-        logger.info("Welcome to the Automation Testing Project!");
+    @Test
+    public void testLogin() {
+        App app = new App();
+
+        // Test valid credentials
+        Assertions.assertTrue(app.login("tomsmith", "SuperSecretPassword!"), "Login should succeed for valid credentials");
+
+        // Test invalid credentials
+        Assertions.assertFalse(app.login("wronguser", "wrongpassword"), "Login should fail for invalid credentials");
     }
 }

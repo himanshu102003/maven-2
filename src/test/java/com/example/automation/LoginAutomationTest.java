@@ -103,7 +103,7 @@ public class LoginAutomationTest {
     @Test
 public void testPageLoadErrorHandling() {
     // Set the path for ChromeDriver
-    System.setProperty("webdriver.chrome.driver", "C:/path/to/chromedriver.exe");
+    System.setProperty("webdriver.chrome.driver", "C:/Users/himan/Downloads/chromedriver-win32/chromedriver-win32/chromedriver.exe");
 
     // Setup Chrome Options for Headless mode (for CI environments)
     ChromeOptions options = new ChromeOptions();

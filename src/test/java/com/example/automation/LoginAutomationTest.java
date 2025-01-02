@@ -101,39 +101,38 @@ public class LoginAutomationTest {
     }
 
     @Test
-public void testPageLoadErrorHandling() {
-    // Set the path for ChromeDriver
-    System.setProperty("webdriver.chrome.driver", "C:/Users/himan/Downloads/chromedriver-win32/chromedriver-win32/chromedriver.exe");
+    public void testPageLoadErrorHandling() {
+        // Set the path for ChromeDriver
+        System.setProperty("webdriver.chrome.driver", "C:/Users/himan/Downloads/chromedriver-win32/chromedriver-win32/chromedriver.exe");
 
-    // Setup Chrome Options for Headless mode (for CI environments)
-    ChromeOptions options = new ChromeOptions();
-    options.addArguments("--headless");
-    options.addArguments("--disable-gpu");
-    options.addArguments("--window-size=1920x1080");
+        // Setup Chrome Options for Headless mode (for CI environments)
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        options.addArguments("--disable-gpu");
+        options.addArguments("--window-size=1920x1080");
 
-    WebDriver driver = new ChromeDriver(options);
+        WebDriver driver = new ChromeDriver(options);
 
-    try {
-        // Navigate to a non-existent page to trigger 404 error
-        driver.get("https://the-internet.herokuapp.com/nonexistent_page");
+        try {
+            // Navigate to a non-existent page to trigger 404 error
+            driver.get("https://the-internet.herokuapp.com/nonexistent_page");
 
-        // Create WebDriverWait instance to wait for elements
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+            // Create WebDriverWait instance to wait for elements
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 
-        // Wait for the error message to be visible
-        WebElement errorMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1[contains(text(), 'Not Found')]")));
+            // Wait for the error message to be visible
+            WebElement errorMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1[contains(text(), 'Not Found')]")));
 
-        // Verify that the error message is displayed
-        Assertions.assertTrue(errorMessage.isDisplayed(), "404 error page should be displayed");
+            // Verify that the error message is displayed
+            Assertions.assertTrue(errorMessage.isDisplayed(), "404 error page should be displayed");
 
-    } catch (Exception e) {
-        e.printStackTrace();
-        Assertions.fail("Error occurred: " + e.getMessage());
-    } finally {
-        driver.quit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Assertions.fail("Error occurred: " + e.getMessage());
+        } finally {
+            driver.quit();
+        }
     }
-}
-
 
     @Test
     public void testLoginAndLogout() {

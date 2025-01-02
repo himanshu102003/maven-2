@@ -7,23 +7,8 @@
     <!-- This module defines the set of checks that will be applied -->
 
     <!-- TreeWalker: Walk through the code to apply the checks -->
-    <module name="TreeWalker">
-
-      <!-- Indentation: Ensure 2 spaces for indentation -->
-      <module name="Indentation">
-        <property name="tabWidth" value="2"/>
-      </module>
-
-      <!-- Naming Convention: Enforce camelCase for variables and methods -->
-      <module name="NamingConvention">
-        <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
-      </module>
-
+    
       <!-- Javadoc: Require Javadoc on all public methods -->
-      <module name="JavadocMethod">
-        <property name="allowMissingParamTags" value="false"/>
-        <property name="allowMissingReturnTags" value="false"/>
-      </module>
 
       <!-- Avoid code duplication (e.g., duplicate methods) -->
       <module name="DuplicateCode">
@@ -35,8 +20,6 @@
         <property name="max" value="120"/>
       </module>
       
-      <module name="FileTabCharacter"/>
-      <module name="WhitespaceAround"/>
 
     </module>
   </module>

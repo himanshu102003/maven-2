@@ -101,26 +101,39 @@ public class LoginAutomationTest {
     }
 
     @Test
-    public void testPageLoadErrorHandling() {
-        WebDriver driver = setupDriver();
-        try {
-            // Test invalid URL to check error handling
-            driver.get("https://the-internet.herokuapp.com/nonexistentpage");
+public void testPageLoadErrorHandling() {
+    // Set the path for ChromeDriver
+    System.setProperty("webdriver.chrome.driver", "C:/path/to/chromedriver.exe");
 
-            // Wait for the 404 page to load
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-            WebElement errorMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("h1")));
+    // Setup Chrome Options for Headless mode (for CI environments)
+    ChromeOptions options = new ChromeOptions();
+    options.addArguments("--headless");
+    options.addArguments("--disable-gpu");
+    options.addArguments("--window-size=1920x1080");
 
-            Assertions.assertTrue(errorMessage.getText().contains("404"), "404 error page should be displayed");
+    WebDriver driver = new ChromeDriver(options);
 
-        } catch (Exception e) {
-            takeScreenshot(driver, "error_page_load_screenshot");
-            e.printStackTrace();
-            Assertions.fail("Error loading page: " + e.getMessage());
-        } finally {
-            driver.quit();
-        }
+    try {
+        // Navigate to a non-existent page to trigger 404 error
+        driver.get("https://the-internet.herokuapp.com/nonexistent_page");
+
+        // Create WebDriverWait instance to wait for elements
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
+        // Wait for the error message to be visible
+        WebElement errorMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1[contains(text(), 'Not Found')]")));
+
+        // Verify that the error message is displayed
+        Assertions.assertTrue(errorMessage.isDisplayed(), "404 error page should be displayed");
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        Assertions.fail("Error occurred: " + e.getMessage());
+    } finally {
+        driver.quit();
     }
+}
+
 
     @Test
     public void testLoginAndLogout() {

@@ -1,4 +1,3 @@
-
 package com.example.automation;
 
 import org.openqa.selenium.By;
@@ -14,6 +13,7 @@ public class LoginAutomationTest {
     @Test
     public void testLogin() {
         // Set up the WebDriver
+        pp.main(new String[]{}); 
         System.setProperty("webdriver.chrome.driver", "C:/Users/himan/Downloads/chromedriver-win32/chromedriver-win32/chromedriver.exe");
         WebDriver driver = new ChromeDriver();
 

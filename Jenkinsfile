@@ -40,9 +40,6 @@ pipeline {
                     mvn clean verify sonar:sonar \
                       -Dsonar.projectKey=maven-aut2 \
                       -Dsonar.projectName='maven-aut2' \
-                      -Dsonar.sources=src/main/java/com/example/automation \
-                      -Dsonar.tests=src/test/java/com/example/automation \
-                      -Dsonar.java.binaries=target/classes \
                       -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml \
                       -Dsonar.host.url=http://localhost:9000 \
                       -Dsonar.login=sqp_6d8f7f1d05d6cb0135d16104f56345d4c6826aac

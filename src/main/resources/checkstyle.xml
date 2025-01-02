@@ -6,7 +6,7 @@
   
   <!-- Indentation: Ensure 2 spaces for indentation -->
   <module name="Indentation">
-    <property name="indentation" value="2"/>
+    <property name="tabWidth" value="2"/>
   </module>
 
   <!-- Naming Convention: Enforce camelCase for variables and methods -->

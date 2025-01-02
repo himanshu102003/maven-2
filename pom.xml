@@ -82,8 +82,7 @@
         <version>3.15.0</version>
         <configuration>
           <rulesets>
-            <ruleset>/rulesets/java/basic.xml</ruleset>
-            <ruleset>/rulesets/java/clone.xml</ruleset>
+            <ruleset>src/main/resources/pmd.xml</ruleset>
           </rulesets>
           <targetJdk>11</targetJdk>
           <linkXRef>false</linkXRef>

@@ -1,4 +1,6 @@
 package com.example.automation;
+import com.example.automation.LoginAutomationTest;
+
 
 public class App {
     public static void main(String[] args) {

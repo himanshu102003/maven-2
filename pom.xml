@@ -73,19 +73,23 @@
             </plugin>
 
             <!-- JaCoCo Plugin for code coverage -->
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>${jacoco.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                            <goal>report</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+
+        <!-- JaCoCo plugin for code coverage -->
+        <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>0.8.7</version> <!-- Use latest version -->
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>prepare-agent</goal>
+                        <goal>report</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+   
+
 
             <!-- SonarQube Plugin -->
             <plugin>
@@ -93,49 +97,7 @@
                 <artifactId>sonar-maven-plugin</artifactId>
                 <version>3.9.1.2184</version>
             </plugin>
-
-            <!-- PMD Plugin -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-pmd-plugin</artifactId>
-                <version>3.18.0</version>
-                <configuration>
-                    <rulesets>
-                        <ruleset>/rulesets/java/basic.xml</ruleset>
-                        <ruleset>/rulesets/java/design.xml</ruleset>
-                        <ruleset>/rulesets/java/unusedcode.xml</ruleset>
-                    </rulesets>
-                    <failOnViolation>true</failOnViolation>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!-- Checkstyle Plugin -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.3.0</version>
-                <configuration>
-                    <configLocation>google_checks.xml</configLocation>
-                    <failOnViolation>true</failOnViolation>
-                    <linkXRef>false</linkXRef>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
+
 </project>

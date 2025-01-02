@@ -1,24 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ruleset xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.github.io/pmd-6.41.0.xsd">
+<ruleset xmlns="http://pmd.sourceforge.net/ruleset/1.0.0"
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/1.0.0 http://pmd.sourceforge.net/ruleset-1.0.xsd"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description>
+        PMD ruleset to detect duplicate code fragments
+    </description>
 
-  <description>
-    Ruleset to enforce code quality and detect duplication
-  </description>
+    <!-- Duplicate code detection -->
+    <rule ref="rulesets/java/clone.xml">
+        <properties>
+            <property name="minimumTokens" value="20"/>
+            <property name="threshold" value="100"/>
+        </properties>
+    </rule>
 
-  <!-- Rule for detecting code duplication -->
-  <rule ref="rulesets/java/duplicates.xml"/>
-
-  <!-- Rule for avoiding empty catch blocks -->
-  <rule ref="rulesets/java/errorprone.xml/EmptyCatchBlock"/>
-
-  <!-- Rule to detect unnecessarily declared variables -->
-  <rule ref="rulesets/java/design.xml/UnnecessaryFullyQualifiedName"/>
-
-  <!-- Rule to detect unused private methods -->
-  <rule ref="rulesets/java/codestyle.xml/UnusedPrivateMethod"/>
-
-  <!-- Rule for enforcing naming conventions -->
-  <rule ref="rulesets/java/naming.xml/MethodNamingConventions"/>
+    <!-- Optional: Add more rules to enforce other coding standards -->
+    <rule ref="rulesets/java/basic.xml"/>
 </ruleset>
